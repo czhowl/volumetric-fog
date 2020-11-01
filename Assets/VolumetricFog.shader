@@ -76,7 +76,7 @@
                 // float offset = tex2D(_NoiseTex, interleavedPosition / 8.0 + float2(0.5/8.0, 0.5/8.0)).w;
                 float3 rayDir = normalize(i.ray.xyz);
                 float3 rayOrigin = _CamWorldSpace;
-                float4 fog = getFog(rayDir, rayOrigin, linearDepth,offset);
+                float4 fog = GetFog(rayDir, rayOrigin, linearDepth,offset);
 
                 return float4(tex.rgb, 1.0 - fog.a) + fog;
                 // return float4(frac(linearDepth),frac(linearDepth),frac(linearDepth) ,1.0);

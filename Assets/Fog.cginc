@@ -119,7 +119,7 @@ float GetDensityBoxFog( float3 p)
     return saturate(-d * noise) * 0.5;
 }
 
-float3 get_scatter_color(float3 p)
+float3 GetScatter(float3 p)
 {
     float absorption = 0.0;
     // float2 m = float2(0.4,0.2);
@@ -138,7 +138,7 @@ float3 get_scatter_color(float3 p)
     }
     
    
-    return saturate(float3(0.8, 0.7, 0.5) * float3(0.4, 0.4, 0.8) - absorption * float3(0.3, 0.4, 0.1));
+    return saturate(float3(0.8, 0.7, 0.5) * float3(0.6, 0.7, 0.8) - absorption * float3(0.1, 0.3, 0.2));
 }
 
 // fixed4 getRayleighPhase(float cosTheta){
@@ -156,7 +156,7 @@ float3 get_scatter_color(float3 p)
 //     return getRayleighScattering(cosTheta);
 // }
 UNITY_DECLARE_SHADOWMAP(ShadowMap);
-float4 getFog(float3 rayDir, float3 rayOrigin, float depth, float offset)
+float4 GetFog(float3 rayDir, float3 rayOrigin, float depth, float offset)
 {
     
     float4 weights = getCascadeWeights(-rayOrigin.z);
@@ -209,10 +209,10 @@ float4 getFog(float3 rayDir, float3 rayOrigin, float depth, float offset)
         // float inScattering = getScattering(cosTheta); 
         // inScattering *= _FogDensity;  
         float3 pos = rayOrigin + rayDir * t;// + rayDir * offset * stepSize;
-        float3 scatter = get_scatter_color(pos);
+        float3 scatter = GetScatter(pos);
         
-        float4 shadowCoord = getShadowCoord(float4(pos,1), weights);
-        float shadowTerm = UNITY_SAMPLE_SHADOW(ShadowMap, shadowCoord);
+        // float4 shadowCoord = getShadowCoord(float4(pos,1), weights);
+        // float shadowTerm = UNITY_SAMPLE_SHADOW(ShadowMap, shadowCoord);
         float d = GetDensityBoxFog(pos);
         fogColor += scatter * d;
         density += d;

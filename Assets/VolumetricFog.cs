@@ -7,7 +7,7 @@ using UnityEditor;
 [ExecuteInEditMode]
 public class VolumetricFog : MonoBehaviour
 {
-    public Texture2D hello;
+    public Texture2D noise;
     public Vector3 fogPos = new Vector3(0.0f, 0.0f, 0.0f);
     [Range(0.0f, 20.0f)]
     public float fogDensity = 2.0f;
@@ -53,7 +53,7 @@ public class VolumetricFog : MonoBehaviour
         }
 
         material.SetTexture("_MainTex", source);
-        material.SetTexture("_helloTex", hello);
+        material.SetTexture("_NoiseTex", noise);
         material.SetMatrix("_CamFrustum", CamFrustum(cam));
         material.SetMatrix("_CamToWorldMatrix", cam.cameraToWorldMatrix);
         material.SetVector("_CamWorldSpace", cam.transform.position);
